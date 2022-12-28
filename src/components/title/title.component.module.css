@@ -2,4 +2,6 @@
   font-family: var(--titles-font);
   font-weight: 700;
   color: var(--primary);
+  text-align: center;
+  font-size: 2rem;
 }
