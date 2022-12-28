@@ -1,0 +1,61 @@
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  margin: auto;
+  width: 120px;
+  height: 120px;
+  background-color: var(--background);
+  padding: 10%;
+}
+
+.O {
+  width: 85%;
+  height: 85%;
+  margin: auto;
+  position: relative;
+  border-radius: 200px;
+  background-color: var(--secondary);
+}
+
+.O:before {
+  content: '';
+  width: 70%;
+  height: 70%;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 200px;
+  background-color: var(--background);
+}
+
+.X {
+  width: 100%;
+  height: 100%;
+  padding-top: 50px;
+}
+
+.X::before,
+.X::after {
+  content: '';
+  display: block;
+  margin-top: -10px;
+  width: 100%;
+  height: 10px;
+  background: var(--primary);
+  border-radius: 8px;
+}
+
+.X::before {
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.X::after {
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
