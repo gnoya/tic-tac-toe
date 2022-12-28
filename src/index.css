@@ -1,0 +1,88 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  /* Fonts */
+  --titles-font: 'Montserrat', sans-serif;
+  --body-font: 'Poppins', sans-serif;
+
+  /* Colors */
+  --primary: #ded098;
+  --secondary: #e97a9d;
+
+  /* Backgrounds */
+  --background: #24144e;
+
+  /* Borders */
+  --box-border: 2px solid var(--secondary);
+  --border-radius: 10px;
+
+  /* Z-indexes */
+  --z-neg: -1;
+  --z-0: 0;
+  --z-1: 1;
+  --z-10: 10;
+
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+}
+
+body,
+button,
+input,
+textarea {
+  font-family: var(--body-font);
+  line-height: 1.25;
+}
+
+h1,
+h2 {
+  font-family: var(--titles-font);
+  font-weight: 500;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--body-font);
+  font-weight: 500;
+}
+
+button:hover,
+a:hover {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: var(--secondary);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border: 2px solid transparent;
+  border-radius: 4px;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 8px;
+}
+
+:focus {
+  outline: var(--secondary) solid 2px;
+  outline-offset: 2px;
+}

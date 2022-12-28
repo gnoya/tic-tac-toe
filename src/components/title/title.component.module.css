@@ -1,0 +1,5 @@
+.title {
+  font-family: var(--titles-font);
+  font-weight: 700;
+  color: var(--primary);
+}
