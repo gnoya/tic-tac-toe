@@ -8,6 +8,9 @@ export interface Tile {
   filledBy: TileFill
 }
 
+/*
+  Returns a tile array all with no actions played (filledBy 'empty')
+*/
 export const makeEmptyTiles = () =>
   Array(9)
     .fill(undefined)

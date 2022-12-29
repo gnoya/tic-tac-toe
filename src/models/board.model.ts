@@ -1,6 +1,6 @@
 import { Player } from './player.model'
 import { Tile, TileIndex } from './tile.model'
-const _ = require('lodash')
+import _ from 'lodash'
 
 /*
     Board tiles: 
@@ -8,8 +8,13 @@ const _ = require('lodash')
     0 | 1 | 2
     3 | 4 | 5
     6 | 7 | 8
-  */
 
+*/
+
+/*
+  Plays the given index as the given player in the given tiles. 
+  Returns the modified tiles' array.
+*/
 export const play = (
   tiles: Tile[],
   player: Player,
@@ -18,14 +23,18 @@ export const play = (
   const clonedTiles = _.cloneDeep(tiles)
 
   if (clonedTiles[index].filledBy !== 'empty') {
-    console.log('Playing on a filled tile')
+    console.error('Playing on a filled tile')
     return []
   }
 
+  // Change the filledBy to the given player
   clonedTiles[index].filledBy = player
   return clonedTiles
 }
 
+/*
+  Returns an array of the available actions (tile indexes) for a given tile array
+*/
 export const getAvailableActions = (tiles: Tile[]): TileIndex[] => {
   return [
     ...tiles
@@ -34,13 +43,22 @@ export const getAvailableActions = (tiles: Tile[]): TileIndex[] => {
   ]
 }
 
+/*
+  Checks if the given board (the tiles) have a winning player, a tie or none.
+  If there is a winning player, returns 'X' or 'O'.
+  If there is a tie, returns 'tie'.
+  If no winning player nor tie, returns null
+*/
 export const getWinningPlayer = (tiles: Tile[]): Player | 'tie' | null => {
-  // if there are more than 4 tiles available, no one has won yet
   const availableActions = getAvailableActions(tiles)
+
+  // If there are more than 4 tiles available, no one has won yet
   if (availableActions.length > 4) return null
+
+  // If no actions available, it is a tie
   if (availableActions.length === 0) return 'tie'
 
-  // check vertically
+  // Check the board vertically
   for (let index of [0, 1, 2]) {
     if (tiles[index].filledBy === 'empty') continue
 
@@ -51,7 +69,7 @@ export const getWinningPlayer = (tiles: Tile[]): Player | 'tie' | null => {
       return tiles[index].filledBy as Player
   }
 
-  // check horizontally
+  // Check the board horizontally
   for (let index of [0, 3, 6]) {
     if (tiles[index].filledBy === 'empty') continue
 
@@ -62,7 +80,7 @@ export const getWinningPlayer = (tiles: Tile[]): Player | 'tie' | null => {
       return tiles[index].filledBy as Player
   }
 
-  // check diagonally from 0 to 8
+  // Check the board diagonally from 0 to 8
   if (
     tiles[0].filledBy !== 'empty' &&
     tiles[0].filledBy === tiles[4].filledBy &&
@@ -70,7 +88,7 @@ export const getWinningPlayer = (tiles: Tile[]): Player | 'tie' | null => {
   )
     return tiles[0].filledBy
 
-  // check diagonally from 2 to 6
+  // Check the board diagonally from 2 to 6
   if (
     tiles[2].filledBy !== 'empty' &&
     tiles[2].filledBy === tiles[4].filledBy &&
@@ -78,5 +96,6 @@ export const getWinningPlayer = (tiles: Tile[]): Player | 'tie' | null => {
   )
     return tiles[2].filledBy
 
+  // No winning player, returning null
   return null
 }

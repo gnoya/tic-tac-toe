@@ -1,14 +1,18 @@
 import { getAvailableActions, getWinningPlayer, play } from './board.model'
 import { negatePlayer, Player } from './player.model'
 import { Tile, TileIndex } from './tile.model'
-var _ = require('lodash')
+import _ from 'lodash'
 
 export interface AIAction {
   index: TileIndex
   score: number
 }
 
-export const getBestMove = (tiles: Tile[], aiPlayer: Player): TileIndex => {
+/*
+  Returns the best possible move (a TileIndex) given an array of tiles and the next player to play.
+  This is calculated using the minimax algorithm.
+*/
+export const getBestMove = (tiles: Tile[], player: Player): TileIndex => {
   const availableActions = getAvailableActions(tiles)
   if (availableActions.length === 9) return 4
 
@@ -17,7 +21,7 @@ export const getBestMove = (tiles: Tile[], aiPlayer: Player): TileIndex => {
 
   for (let action of availableActions) {
     const clonedTiles = _.cloneDeep(tiles)
-    const moveScore = minimax(clonedTiles, action, aiPlayer, 1, aiPlayer)
+    const moveScore = minimax(clonedTiles, action, player, 1, player)
     console.log(moveScore)
 
     if (moveScore > bestScore) {
@@ -29,31 +33,35 @@ export const getBestMove = (tiles: Tile[], aiPlayer: Player): TileIndex => {
   return bestMove
 }
 
+/*
+  Minimax algorithm maximizes the score of the original player and minimizes the score of the
+  opponent player. This is a recursive functions that returns the score of the given action.
+*/
 export const minimax = (
   tiles: Tile[],
   action: TileIndex,
   player: Player,
   depth: number,
-  aiPlayer: Player
+  originalPlayer: Player
 ): number => {
   const newTiles = play(tiles, player, action)
   let winningPlayer = getWinningPlayer(newTiles)
 
-  // game is finished
+  // Game is finished because winningPlayer is the player who just played
   if (winningPlayer === player) {
-    // !== 'tie' ?
-    return winningPlayer === aiPlayer ? 10000 / depth : -10000 / depth
+    return winningPlayer === originalPlayer ? 10000 / depth : -10000 / depth
   }
 
+  // Game tied
   if (winningPlayer === 'tie') {
     return 0
   }
 
-  // game is not finished
+  // Game is not finished
   const availableActions = getAvailableActions(newTiles)
 
-  // we maximize
-  if (aiPlayer !== player) {
+  // We maximize
+  if (originalPlayer !== player) {
     let bestScore: number = -Infinity
 
     for (let action of availableActions) {
@@ -61,9 +69,9 @@ export const minimax = (
       const moveScore = minimax(
         clonedTiles,
         action,
-        aiPlayer,
+        originalPlayer,
         depth + 1,
-        aiPlayer
+        originalPlayer
       )
 
       if (moveScore > bestScore) {
@@ -74,7 +82,7 @@ export const minimax = (
     return bestScore
   }
 
-  // we minimize
+  // We minimize
   else {
     let bestScore: number = Infinity
 
@@ -83,9 +91,9 @@ export const minimax = (
       const moveScore = minimax(
         clonedTiles,
         action,
-        negatePlayer(aiPlayer),
+        negatePlayer(originalPlayer),
         depth + 1,
-        aiPlayer
+        originalPlayer
       )
 
       if (moveScore < bestScore) {
@@ -96,70 +104,3 @@ export const minimax = (
     return bestScore
   }
 }
-
-// export const minimax = (
-//   tiles: Tile[],
-//   action: TileIndex,
-//   player: Player,
-//   aiPlayer: Player,
-//   depth: number
-// ): number => {
-//   const newTiles = play(tiles, player, action)
-//   let winningPlayer = getWinningPlayer(newTiles)
-
-//   // game is finished
-//   if (winningPlayer === player) {
-//     return winningPlayer === aiPlayer ? 10000 / depth : -10000 / depth
-//   }
-
-//   if (winningPlayer === 'tie') {
-//     return 0
-//   }
-
-//   // game is not finished
-//   const availableActions = getAvailableActions(newTiles)
-
-//   // we maximize
-//   if (aiPlayer !== player) {
-//     let bestScore: number = -Infinity
-
-//     for (let action of availableActions) {
-//       const clonedTiles = _.cloneDeep(newTiles)
-//       const moveScore = minimax(
-//         clonedTiles,
-//         action,
-//         aiPlayer,
-//         aiPlayer,
-//         depth + 1
-//       )
-
-//       if (moveScore > bestScore) {
-//         bestScore = moveScore
-//       }
-//     }
-
-//     return bestScore
-//   }
-
-//   // we minimize
-//   else {
-//     let bestScore: number = Infinity
-
-//     for (let action of availableActions) {
-//       const newTiles = _.cloneDeep(tiles)
-//       const moveScore = minimax(
-//         newTiles,
-//         action,
-//         negatePlayer(aiPlayer),
-//         aiPlayer,
-//         depth + 1
-//       )
-
-//       if (moveScore < bestScore) {
-//         bestScore = moveScore
-//       }
-//     }
-
-//     return bestScore
-//   }
-// }
