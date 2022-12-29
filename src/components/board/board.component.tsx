@@ -10,10 +10,11 @@ import { makeEmptyTiles, Tile, TileIndex } from '../../models/tile.model'
 import BoardTile from '../board-tile/board-tile.component'
 import styles from './board.component.module.css'
 import { useModal } from '../../hooks/use-modal/use-modal.hook'
+import ToggleSwitch from '../toggle-switch/toggle-switch.component'
 
 export default function Board() {
   const [tiles, setTiles] = useState<Tile[]>(makeEmptyTiles())
-  const [player] = useState<Player>('X')
+  const [player, setPlayer] = useState<Player>('X')
   const modal = useModal()
   const playersTurn: boolean = getPlayerInTurn(tiles) === player
 
@@ -22,10 +23,20 @@ export default function Board() {
     after that tile is played by the user (only the user/player can click)
   */
   const onTileClick = (index: TileIndex) => {
-    setTiles((prevState: any) => {
+    setTiles((prevState: Tile[]) => {
       const newTiles: Tile[] = play(prevState, player, index)
       return newTiles
     })
+  }
+
+  /*
+    Receives the value of the toggle:
+    True means that the user chose to be 'O'
+    False means that the user chose to be 'X'
+  */
+  const onSwitchToggle = (value: boolean) => {
+    setPlayer(value ? 'O' : 'X')
+    setTiles(makeEmptyTiles())
   }
 
   /*
@@ -67,6 +78,8 @@ export default function Board() {
     timeout = setTimeout(() => {
       const aiPlayer = negatePlayer(player)
 
+      console.log('aaaaaa')
+
       // Check if AI is the one to play
       if (
         (getPlayerInTurn(tiles) === 'O' && aiPlayer === 'O') ||
@@ -85,6 +98,12 @@ export default function Board() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.panelContainer}>
+        <BoardTile index={0} filledBy={'X'} disabled={true} inBoard={false} />
+        <ToggleSwitch onToggle={onSwitchToggle} />
+        <BoardTile index={0} filledBy={'O'} disabled={true} inBoard={false} />
+      </div>
+
       <div className={styles.boardContainer}>
         {tiles.map((tile: Tile, index) => (
           <BoardTile

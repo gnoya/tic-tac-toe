@@ -3,6 +3,16 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  gap: 50px;
+}
+
+.panelContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  gap: 0 30px;
 }
 
 .boardContainer {
