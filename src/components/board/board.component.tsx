@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Player, negatePlayer } from '../../models/player.model'
 import {
-  getAvailableActions,
   play,
   getWinningPlayer,
+  getPlayerInTurn,
 } from '../../models/board.model'
 import { getBestMove } from '../../models/ai.model'
 import { makeEmptyTiles, Tile, TileIndex } from '../../models/tile.model'
@@ -11,11 +11,9 @@ import BoardTile from '../board-tile/board-tile.component'
 import styles from './board.component.module.css'
 import { useModal } from '../../hooks/use-modal/use-modal.hook'
 
-interface BoardProps {}
-
-export default function Board(props: BoardProps) {
+export default function Board() {
   const [tiles, setTiles] = useState<Tile[]>(makeEmptyTiles())
-  const [player] = useState<Player>('O')
+  const [player] = useState<Player>('X')
   const modal = useModal()
 
   /*
@@ -66,13 +64,12 @@ export default function Board(props: BoardProps) {
     }
 
     timeout = setTimeout(() => {
-      const availableActions = getAvailableActions(tiles)
       const aiPlayer = negatePlayer(player)
 
-      // If the mod 2 of the available actions length is 0, then it is 'O's turn
+      // Check if AI is the one to play
       if (
-        (availableActions.length % 2 === 0 && aiPlayer === 'O') ||
-        (availableActions.length % 2 !== 0 && aiPlayer === 'X')
+        (getPlayerInTurn(tiles) === 'O' && aiPlayer === 'O') ||
+        (getPlayerInTurn(tiles) === 'X' && aiPlayer === 'X')
       ) {
         const bestMove: TileIndex = getBestMove(tiles, aiPlayer)
         setTiles(() => play(tiles, aiPlayer, bestMove))
@@ -92,6 +89,7 @@ export default function Board(props: BoardProps) {
           key={index}
           index={tile.index}
           filledBy={tile.filledBy}
+          disabled={getPlayerInTurn(tiles) !== player}
           onClick={onTileClick}
         />
       ))}

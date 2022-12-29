@@ -99,3 +99,14 @@ export const getWinningPlayer = (tiles: Tile[]): Player | 'tie' | null => {
   // No winning player, returning null
   return null
 }
+
+/*
+  Returns the player in turn to play given an array of tiles.
+  If the mod 2 of the length of available actions is 0, then it's 'O' turn.
+  Else, it's 'X' turn.
+*/
+export const getPlayerInTurn = (tiles: Tile[]): Player => {
+  const availableActions: TileIndex[] = getAvailableActions(tiles)
+
+  return availableActions.length % 2 === 0 ? 'O' : 'X'
+}
