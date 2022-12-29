@@ -6,8 +6,8 @@ import styles from './game.page.module.css'
 export default function GamePage() {
   return (
     <div className={styles.container}>
-      <Title>Game Page Demo!</Title>
-      <Text>Hola prueba</Text>
+      <Title>Tic Tac Toe</Title>
+      <Text>This is Tic Tac Toe against a powerful AI! Can you beat it?</Text>
       <Board />
     </div>
   )
