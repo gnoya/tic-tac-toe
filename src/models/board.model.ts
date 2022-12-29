@@ -55,9 +55,6 @@ export const getWinningPlayer = (tiles: Tile[]): Player | 'tie' | null => {
   // If there are more than 4 tiles available, no one has won yet
   if (availableActions.length > 4) return null
 
-  // If no actions available, it is a tie
-  if (availableActions.length === 0) return 'tie'
-
   // Check the board vertically
   for (let index of [0, 1, 2]) {
     if (tiles[index].filledBy === 'empty') continue
@@ -95,6 +92,9 @@ export const getWinningPlayer = (tiles: Tile[]): Player | 'tie' | null => {
     tiles[2].filledBy === tiles[6].filledBy
   )
     return tiles[2].filledBy
+
+  // If no actions available after checking, it is a tie
+  if (availableActions.length === 0) return 'tie'
 
   // No winning player, returning null
   return null

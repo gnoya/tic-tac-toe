@@ -15,7 +15,7 @@ interface BoardProps {}
 
 export default function Board(props: BoardProps) {
   const [tiles, setTiles] = useState<Tile[]>(makeEmptyTiles())
-  const [player] = useState<Player>('X')
+  const [player] = useState<Player>('O')
   const modal = useModal()
 
   /*
@@ -36,6 +36,7 @@ export default function Board(props: BoardProps) {
   */
   useEffect(() => {
     const winningPlayer: Player | 'tie' | null = getWinningPlayer(tiles)
+    console.log(winningPlayer)
 
     // Someone won or game is tied
     if (winningPlayer !== null) {
@@ -46,15 +47,18 @@ export default function Board(props: BoardProps) {
           ? 'You win!'
           : 'The AI wins!'
 
-      modal.fire({
-        title: 'Game finished',
-        text: notificationText,
-        showCancelButton: false,
-        allowOutsideClick: true,
-      })
+      modal
+        .fire({
+          title: 'Game finished',
+          text: notificationText,
+          showCancelButton: false,
+          allowOutsideClick: true,
+        })
+        .then(() => {
+          // Reset the board
+          setTiles(makeEmptyTiles())
+        })
 
-      // Reset the board
-      setTiles(makeEmptyTiles())
       return
     }
 
@@ -62,7 +66,7 @@ export default function Board(props: BoardProps) {
       const availableActions = getAvailableActions(tiles)
       const aiPlayer = negatePlayer(player)
 
-      // If the mod 2 is 0, then it is 'O's turn
+      // If the mod 2 of the available actions length is 0, then it is 'O's turn
       if (
         (availableActions.length % 2 === 0 && aiPlayer === 'O') ||
         (availableActions.length % 2 !== 0 && aiPlayer === 'X')
