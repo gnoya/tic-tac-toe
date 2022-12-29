@@ -32,11 +32,12 @@ export default function Board(props: BoardProps) {
   /*
     Every time the tiles array is modified by the user click, we check if game is finished. 
     If it is finished, we notify the user and clear the board.
-    If it is not finished, wait 500ms and then get the best move and play it.
+    If it is not finished, wait a few ms and then get the best move and play it.
   */
   useEffect(() => {
+    let timeout: NodeJS.Timeout
+
     const winningPlayer: Player | 'tie' | null = getWinningPlayer(tiles)
-    console.log(winningPlayer)
 
     // Someone won or game is tied
     if (winningPlayer !== null) {
@@ -47,22 +48,24 @@ export default function Board(props: BoardProps) {
           ? 'You win!'
           : 'The AI wins!'
 
-      modal
-        .fire({
-          title: 'Game finished',
-          text: notificationText,
-          showCancelButton: false,
-          allowOutsideClick: true,
-        })
-        .then(() => {
-          // Reset the board
-          setTiles(makeEmptyTiles())
-        })
+      timeout = setTimeout(() => {
+        modal
+          .fire({
+            title: 'Game finished',
+            text: notificationText,
+            showCancelButton: false,
+            allowOutsideClick: true,
+          })
+          .then(() => {
+            // Reset the board
+            setTiles(makeEmptyTiles())
+          })
+      }, 300)
 
       return
     }
 
-    const timeout: NodeJS.Timeout = setTimeout(() => {
+    timeout = setTimeout(() => {
       const availableActions = getAvailableActions(tiles)
       const aiPlayer = negatePlayer(player)
 
@@ -74,7 +77,7 @@ export default function Board(props: BoardProps) {
         const bestMove: TileIndex = getBestMove(tiles, aiPlayer)
         setTiles(() => play(tiles, aiPlayer, bestMove))
       }
-    }, 500)
+    }, 250)
 
     // Clear the timeout in case of unmount
     return () => {
