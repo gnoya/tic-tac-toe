@@ -1,0 +1,58 @@
+.modal {
+  background-color: var(--background);
+  border-radius: var(--border-radius);
+}
+
+.title {
+  font-weight: 700;
+  font-family: var(--titles-font);
+  font-size: 2rem;
+  color: var(--primary);
+}
+
+.content {
+  font-family: var(--body-font);
+  font-size: 1rem;
+  color: var(--secondary);
+}
+
+.footer {
+  font-size: 0.85rem;
+}
+
+.modalButton {
+  display: block;
+  border: none;
+  border-radius: calc(var(--border-radius) / 2);
+  background: none;
+  padding: 10px 20px;
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  line-height: inherit;
+  font-weight: 400;
+  cursor: pointer;
+  margin: 0 10px;
+  min-width: 120px;
+}
+
+.modalButton:disabled {
+  opacity: 0.5;
+}
+
+.modalConfirmButton,
+.modalConfirmButtonDanger {
+  color: white;
+}
+
+.modalConfirmButton {
+  background: var(--green2);
+}
+
+.modalConfirmButtonDanger {
+  background-color: var(--deny-color);
+}
+
+.modalCancelButton {
+  box-shadow: 0 0 0 2px var(--main-color) inset;
+  color: var(--main-color);
+}
