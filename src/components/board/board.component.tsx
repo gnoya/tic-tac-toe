@@ -82,8 +82,6 @@ export default function Board(props: BoardProps) {
     }
   }, [tiles, player, modal])
 
-  useEffect(() => {}, [tiles, player])
-
   return (
     <div className={styles.container}>
       {tiles.map((tile: Tile, index) => (
