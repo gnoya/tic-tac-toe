@@ -15,6 +15,7 @@ export default function Board() {
   const [tiles, setTiles] = useState<Tile[]>(makeEmptyTiles())
   const [player] = useState<Player>('X')
   const modal = useModal()
+  const playersTurn: boolean = getPlayerInTurn(tiles) === player
 
   /*
     Gets the index of the clicked tile and updates the tiles state
@@ -84,15 +85,17 @@ export default function Board() {
 
   return (
     <div className={styles.container}>
-      {tiles.map((tile: Tile, index) => (
-        <BoardTile
-          key={index}
-          index={tile.index}
-          filledBy={tile.filledBy}
-          disabled={getPlayerInTurn(tiles) !== player}
-          onClick={onTileClick}
-        />
-      ))}
+      <div className={styles.boardContainer}>
+        {tiles.map((tile: Tile, index) => (
+          <BoardTile
+            key={index}
+            index={tile.index}
+            filledBy={tile.filledBy}
+            disabled={!playersTurn}
+            onClick={onTileClick}
+          />
+        ))}
+      </div>
     </div>
   )
 }
