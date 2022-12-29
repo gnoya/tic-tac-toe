@@ -4,4 +4,6 @@
   color: var(--primary);
   text-align: center;
   font-size: 2rem;
+  margin: 0;
+  padding: 0;
 }

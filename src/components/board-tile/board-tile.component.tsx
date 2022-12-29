@@ -1,19 +1,19 @@
+import { Tile, TileIndex } from '../../models/tile.model'
 import styles from './board-tile.component.module.css'
 
-interface BoardTileProps {
-  type: 'X' | 'O'
-  onClick?: (type: string) => void
+interface BoardTileProps extends Tile {
+  onClick?: (index: TileIndex) => void
 }
 
 export default function BoardTile(props: BoardTileProps) {
-  const { type, onClick } = props
+  const { index, filledBy, onClick } = props
 
   return (
-    <div className={styles.container}>
-      <div
-        className={styles[type]}
-        onClick={() => onClick && onClick(type)}
-      ></div>
+    <div
+      className={styles.container}
+      onClick={() => onClick && filledBy === 'empty' && onClick(index)}
+    >
+      <div className={styles[filledBy]}></div>
     </div>
   )
 }

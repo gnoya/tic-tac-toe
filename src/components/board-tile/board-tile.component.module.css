@@ -9,6 +9,10 @@
   padding: 10%;
 }
 
+.empty {
+  display: none;
+}
+
 .O {
   width: 85%;
   height: 85%;
