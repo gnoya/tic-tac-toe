@@ -1,12 +1,26 @@
-.container {
+.container,
+.panelContainer {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  gap: 50px;
+  gap: 50px 0;
 }
 
 .panelContainer {
+  gap: 10px 0;
+}
+
+.yourTurnMsgContainer {
+  min-height: 30px;
+}
+
+.panelContainer p,
+.yourTurnMsgContainer p {
+  color: var(--tertiary);
+}
+
+.toggleContainer {
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;

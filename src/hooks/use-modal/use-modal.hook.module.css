@@ -41,7 +41,7 @@
 
 .modalConfirmButton,
 .modalConfirmButtonDanger {
-  color: white;
+  color: var(--tertiary);
 }
 
 .modalConfirmButton {

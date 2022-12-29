@@ -11,6 +11,7 @@ import BoardTile from '../board-tile/board-tile.component'
 import styles from './board.component.module.css'
 import { useModal } from '../../hooks/use-modal/use-modal.hook'
 import ToggleSwitch from '../toggle-switch/toggle-switch.component'
+import Text from '../text/text.component'
 
 export default function Board() {
   const [tiles, setTiles] = useState<Tile[]>(makeEmptyTiles())
@@ -78,8 +79,6 @@ export default function Board() {
     timeout = setTimeout(() => {
       const aiPlayer = negatePlayer(player)
 
-      console.log('aaaaaa')
-
       // Check if AI is the one to play
       if (
         (getPlayerInTurn(tiles) === 'O' && aiPlayer === 'O') ||
@@ -98,10 +97,8 @@ export default function Board() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.panelContainer}>
-        <BoardTile index={0} filledBy={'X'} disabled={true} inBoard={false} />
-        <ToggleSwitch onToggle={onSwitchToggle} />
-        <BoardTile index={0} filledBy={'O'} disabled={true} inBoard={false} />
+      <div className={styles.yourTurnMsgContainer}>
+        {playersTurn && <Text>It's your turn!</Text>}
       </div>
 
       <div className={styles.boardContainer}>
@@ -114,6 +111,15 @@ export default function Board() {
             onClick={onTileClick}
           />
         ))}
+      </div>
+
+      <div className={styles.panelContainer}>
+        <Text>You can swap your role (you are {player}):</Text>
+        <div className={styles.toggleContainer}>
+          <BoardTile index={0} filledBy={'X'} disabled={true} inBoard={false} />
+          <ToggleSwitch onToggle={onSwitchToggle} />
+          <BoardTile index={0} filledBy={'O'} disabled={true} inBoard={false} />
+        </div>
       </div>
     </div>
   )
