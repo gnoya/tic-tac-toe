@@ -63,3 +63,17 @@
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.X,
+.O {
+  animation: showup 0.2s ease;
+}
+
+@keyframes showup {
+  from {
+    transform: scale(0.7);
+  }
+  to {
+    transform: scale(1);
+  }
+}
