@@ -6,5 +6,5 @@ export const themeContext = createContext<{
   setTheme: (theme: Theme) => void
 }>({
   theme: 'system',
-  setTheme: () => null
+  setTheme: () => null,
 })

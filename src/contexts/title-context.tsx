@@ -5,5 +5,5 @@ export const titleContext = createContext<{
   setTitle: (title: string) => void
 }>({
   title: 'Tic tac toe',
-  setTitle: () => {}
+  setTitle: () => {},
 })
