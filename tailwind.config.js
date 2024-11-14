@@ -51,6 +51,15 @@ export default {
           5: 'hsl(var(--chart-5))',
         },
       },
+      keyframes: {
+        'mark-appear': {
+          '0%': { transform: 'scale(0.5)' },
+          '100%': { transform: 'scale(1.0)' },
+        },
+      },
+      animation: {
+        'mark-appear': 'mark-appear 0.1s linear',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

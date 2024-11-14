@@ -1,4 +1,4 @@
-import { usePlayGame } from '@/hooks/use-play-game'
+import { useTicTacToe } from '@/hooks/use-tic-tac-toe'
 import { Board } from './board'
 import { RoleSwapper } from './role-swapper'
 import { Button } from './ui/button'
@@ -11,17 +11,17 @@ export function Game() {
     onUserRoleSwap,
     onTilePlay,
     restartGame,
-  } = usePlayGame()
+  } = useTicTacToe()
 
   return (
-    <div className="grid gap-8 justify-self-center">
+    <div className="grid items-center justify-items-center gap-8 justify-self-center">
       <Board
         tiles={tiles}
         onTileClick={(index: number) => onTilePlay(index, userRole)}
       />
       <RoleSwapper userRole={userRole} onUserRoleSwap={onUserRoleSwap} />
       {gameEnded && (
-        <Button variant="secondary" onClick={restartGame}>
+        <Button variant="secondary" onClick={restartGame} className="w-1/2">
           Restart game
         </Button>
       )}

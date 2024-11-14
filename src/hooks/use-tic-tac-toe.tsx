@@ -6,7 +6,7 @@ import { FIRST_TO_PLAY, USER_DEFAULT_ROLE } from '@/constants/game'
 import { toast } from 'sonner'
 import { getBestMoveTileIndex } from '@/lib/minimax'
 
-export function usePlayGame() {
+export function useTicTacToe() {
   const [tiles, setTiles] = useState<Tile[]>(makeEmptyTiles())
   const [userRole, setUserRole] = useState<Role>(USER_DEFAULT_ROLE)
   const [roleInTurn, setRoleInTurn] = useState<Role>(FIRST_TO_PLAY)
@@ -64,7 +64,7 @@ export function usePlayGame() {
 
     // AI's turn
     const aiTileIndex = getBestMoveTileIndex(tiles, getTheOtherRole(userRole))
-    onTilePlay(aiTileIndex, getTheOtherRole(userRole))
+    setTimeout(() => onTilePlay(aiTileIndex, getTheOtherRole(userRole)), 500)
   }, [tiles, userRole, roleInTurn, gameEnded, onTilePlay, onGameEnd])
 
   useEffect(() => {

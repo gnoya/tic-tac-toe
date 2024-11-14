@@ -8,25 +8,16 @@ interface RoleMarkProps {
 }
 
 export function RoleMark({ mark, className, onClick }: RoleMarkProps) {
-  return mark === 'X' ? (
+  return (
     <div
       onClick={onClick}
       className={cn(
-        'select-none place-self-center self-center text-7xl text-primary',
+        'animate-mark-appear select-none place-self-center self-center text-7xl',
+        mark === 'X' ? 'text-primary' : 'text-secondary',
         className,
       )}
     >
-      X
-    </div>
-  ) : (
-    <div
-      onClick={onClick}
-      className={cn(
-        'select-none place-self-center self-center text-7xl text-secondary',
-        className,
-      )}
-    >
-      O
+      {mark}
     </div>
   )
 }
