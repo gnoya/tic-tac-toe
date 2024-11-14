@@ -1,3 +1,4 @@
+import { FIRST_TO_PLAY } from '@/constants/game'
 import { Role } from '@/types/role'
 import { Tile } from '@/types/tile'
 
@@ -16,6 +17,19 @@ export function makeEmptyTiles(): Tile[] {
 */
 export function getTheOtherRole(role: Role): Role {
   return role === 'X' ? 'O' : 'X'
+}
+
+/*
+  Returns the player in turn to play given an array of tiles.
+  If the mod 2 of the length of available actions is 0, then it's 'O' turn.
+  Else, it's 'X' turn.
+*/
+export function getRoleInTurn(tiles: Tile[]): Role {
+  const availableTileIndexes: number[] = getAvailableTileIndexes(tiles)
+
+  return availableTileIndexes.length % 2 === 0
+    ? getTheOtherRole(FIRST_TO_PLAY)
+    : FIRST_TO_PLAY
 }
 
 /*
