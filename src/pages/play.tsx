@@ -6,11 +6,13 @@ export function Play() {
   useTitle('Play')
 
   return (
-    <div className="grid h-fit gap-4">
-      <Typography variant="h1">Tic Tac Toe</Typography>
-      <Typography variant="h2">
-        You will play against a powerful AI! Can you beat it?
-      </Typography>
+    <div className="space-y-12">
+      <div className="space-y-2">
+        <Typography variant="h1">Tic Tac Toe</Typography>
+        <Typography variant="h2">
+          You will play against a powerful AI! Can you beat it?
+        </Typography>
+      </div>
       <Game />
     </div>
   )
