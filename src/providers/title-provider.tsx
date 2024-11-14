@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react'
-import { titleContext } from '../contexts/title-context'
+import { titleContext } from '@/contexts/title-context'
 
 const TITLE_TEMPLATE = '%s | Tic Tac Toe'
 
@@ -10,9 +10,7 @@ export function TitleProvider({ children }: TitleProviderProps) {
   const [title, setTitle] = useState('')
 
   useEffect(() => {
-    document.title = title
-      ? TITLE_TEMPLATE.replace('%s', title)
-      : TITLE_TEMPLATE.replace('%s | ', '')
+    document.title = TITLE_TEMPLATE.replace('%s', title)
   }, [title])
 
   return (
