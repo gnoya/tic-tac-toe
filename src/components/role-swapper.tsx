@@ -4,29 +4,29 @@ import { Typography } from './ui/typography'
 import { Role } from '@/types/role'
 
 interface RoleSwapperProps {
-  role: Role
-  setRole: (role: Role) => void
+  userRole: Role
+  onUserRoleSwap: (role: Role) => void
 }
-export function RoleSwapper({ role, setRole }: RoleSwapperProps) {
+export function RoleSwapper({ userRole, onUserRoleSwap }: RoleSwapperProps) {
   return (
     <div className="grid justify-center gap-2">
       <Typography variant="h4">
-        You can swap your role (you are {role})
+        You can swap your role (you are {userRole})
       </Typography>
       <div className="flex items-center justify-center gap-4">
         <PlayerMark
           mark="X"
           className="cursor-pointer text-4xl"
-          onClick={() => setRole('X')}
+          onClick={() => onUserRoleSwap('X')}
         />
         <Switch
-          checked={role === 'O'}
-          onCheckedChange={(checked) => setRole(checked ? 'O' : 'X')}
+          checked={userRole === 'O'}
+          onCheckedChange={(checked) => onUserRoleSwap(checked ? 'O' : 'X')}
         />
         <PlayerMark
           mark="O"
           className="cursor-pointer text-4xl"
-          onClick={() => setRole('O')}
+          onClick={() => onUserRoleSwap('O')}
         />
       </div>
     </div>
