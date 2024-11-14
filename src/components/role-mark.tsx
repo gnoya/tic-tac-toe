@@ -1,13 +1,13 @@
 import { cn } from '@/lib/utils'
 import { Role } from '@/types/role'
 
-interface PlayerMarkProps {
+interface RoleMarkProps {
   mark: Role
   className?: string
   onClick?: () => void
 }
 
-export function PlayerMark({ mark, className, onClick }: PlayerMarkProps) {
+export function RoleMark({ mark, className, onClick }: RoleMarkProps) {
   return mark === 'X' ? (
     <div
       onClick={onClick}

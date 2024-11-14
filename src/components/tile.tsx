@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { PlayerMark } from './player-mark'
+import { RoleMark } from './role-mark'
 import { Tile as TileType } from '@/types/tile'
 
 interface TileProps {
@@ -16,7 +16,7 @@ export function Tile({ tile, onClick }: TileProps) {
         !tile.filledBy && 'cursor-pointer',
       )}
     >
-      {tile.filledBy && <PlayerMark mark={tile.filledBy} />}
+      {tile.filledBy && <RoleMark mark={tile.filledBy} />}
     </div>
   )
 }

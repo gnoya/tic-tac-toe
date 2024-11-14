@@ -1,6 +1,9 @@
 import { Role } from '@/types/role'
 import { Tile } from '@/types/tile'
 
+/*
+  Returns an array of empty tiles
+*/
 export function makeEmptyTiles(): Tile[] {
   return Array.from({ length: 9 }, (_, index) => ({
     index: index,
@@ -8,6 +11,9 @@ export function makeEmptyTiles(): Tile[] {
   }))
 }
 
+/*
+  Returns the other role
+*/
 export function getTheOtherRole(role: Role): Role {
   return role === 'X' ? 'O' : 'X'
 }
@@ -15,7 +21,7 @@ export function getTheOtherRole(role: Role): Role {
 /*
   Returns an array of the available actions (tile indexes) for a given tile array
 */
-export const getAvailableActions = (tiles: Tile[]): number[] => {
+export const getAvailableTileIndexes = (tiles: Tile[]): number[] => {
   return [
     ...tiles
       .filter((tile: Tile) => !tile.filledBy)
@@ -27,7 +33,7 @@ export const getAvailableActions = (tiles: Tile[]): number[] => {
   Returns the winning player or null if there is no winner yet
 */
 export const getWinningPlayer = (tiles: Tile[]): Role | 'tie' | null => {
-  const availableActions = getAvailableActions(tiles)
+  const availableActions = getAvailableTileIndexes(tiles)
 
   // If there are more than 4 tiles available, no one has won yet
   if (availableActions.length > 4) return null

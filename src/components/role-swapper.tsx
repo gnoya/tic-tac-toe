@@ -1,4 +1,4 @@
-import { PlayerMark } from '@/components/player-mark'
+import { RoleMark } from '@/components/role-mark'
 import { Switch } from '@/components/ui/switch'
 import { Typography } from './ui/typography'
 import { Role } from '@/types/role'
@@ -14,7 +14,7 @@ export function RoleSwapper({ userRole, onUserRoleSwap }: RoleSwapperProps) {
         You can swap your role (you are {userRole})
       </Typography>
       <div className="flex items-center justify-center gap-4">
-        <PlayerMark
+        <RoleMark
           mark="X"
           className="cursor-pointer text-4xl"
           onClick={() => onUserRoleSwap('X')}
@@ -23,7 +23,7 @@ export function RoleSwapper({ userRole, onUserRoleSwap }: RoleSwapperProps) {
           checked={userRole === 'O'}
           onCheckedChange={(checked) => onUserRoleSwap(checked ? 'O' : 'X')}
         />
-        <PlayerMark
+        <RoleMark
           mark="O"
           className="cursor-pointer text-4xl"
           onClick={() => onUserRoleSwap('O')}
